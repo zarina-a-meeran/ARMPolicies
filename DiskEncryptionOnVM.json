@@ -1,0 +1,53 @@
+{
+    "mode": "All",
+    "description": "This policy denys VMs that do not use attached non encrypted disks",
+    "metadata": {
+      "version": "1.0.0",
+      "category": "Compute"
+    },
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "anyOf": [
+          {
+            "allOf": [
+              {
+                "field": "type",
+                "equals": "Microsoft.Compute/virtualMachines"
+              },
+              {
+                "field": "Microsoft.Compute/virtualMachines/osDisk.uri",
+                "exists": "True"
+              },
+              {
+                "field": "Microsoft.Compute/disks",
+                "exists": "True"
+              },
+              {
+                "field": "Microsoft.Compute/disks/diskState",
+                "equals": "attached"
+              },
+              {
+                "field": "Microsoft.Compute/disks/encryptionSettingsCollection.enabled",
+                "exists": "false"
+              },
+              {
+                "field": "Microsoft.Compute/disks/encryptionSettingsCollection.enabled",
+                "equals": "false"
+              },
+              {
+                "field": "Microsoft.Compute/virtualMachines/osDisk.encryptionSettings",
+                "exists": "false"
+              },
+              {
+                "field": "Microsoft.Compute/virtualMachines/osDisk.encryptionSettings",
+                "equals": "false"
+              }
+            ]
+            }
+          ]
+        },
+      "then": {
+        "effect": "deny"
+      }
+
