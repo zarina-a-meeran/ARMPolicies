@@ -1,40 +1,30 @@
-
-  //https://docs.microsoft.com/en-us/azure/templates/microsoft.storage/2019-06-01/storageaccounts/encryptionscopes
-  // change terraform code.
-  //https://www.terraform.io/docs/providers/azurerm/r/managed_disk.html
-  //Do not allow to create a storage account without server side encryption using customer managed key
-
-  {
-    "mode": "All",
-    "description": "This policy denys VMs that do not use attached non encrypted disks",
-    "metadata": {
-      "version": "1.0.0",
-      "category": "Compute"
+{
+  "mode": "All",
+  "description": "This policy denys VMs that do not use attached non encrypted disks",
+  "metadata": {
+    "version": "1.0.0",
+    "category": "Compute"
+  },
+  "parameters": {},
+  "policyRule": {
+    "if": {
+      "anyOf": [
+        {
+          "allOf": [
+            {
+              "field": "type",
+              "notequals": "Microsoft.Storage/storageAccounts"
+            },
+            {
+              "field": "type",
+              "notequals": "Microsoft.Storage/storageAccounts/encryptionScopes/keyVaultProperties.keyUri"
+            }
+              ]
+            }
+          ]
     },
-    "parameters": {},
-    "policyRule": {
-      "if": {
-        "anyOf": [
-          {
-            "allOf": [
-              {
-                "field": "type",
-                "notequal": "Microsoft.Storage/storageAccounts"
-              },
-              {
-                "field": "type",
-                "notequals": "Microsoft.Storage/storageAccounts/encryptionScopes"
-              }
-                ]
-              }
-            ]
-          }
-      },
-      "then": {
-        "effect": "deny"
-      }
-    
-
-
-//Do not allow to create a virtual machine without disk encryption setß
-  
+    "then": {
+      "effect": "deny"
+    }
+}
+}
