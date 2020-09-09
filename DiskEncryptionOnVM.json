@@ -16,11 +16,7 @@
                 "equals": "Microsoft.Compute/virtualMachines"
               },
               {
-                "field": "Microsoft.Compute/virtualMachines/osDisk.uri",
-                "exists": "True"
-              },
-              {
-                "field": "Microsoft.Compute/disks",
+                "field": "Microsoft.Compute/virtualMachines/storageProfile.osDisk.encryptionSettings.enabled",
                 "exists": "True"
               },
               {
@@ -34,14 +30,6 @@
               {
                 "field": "Microsoft.Compute/disks/encryptionSettingsCollection.enabled",
                 "equals": "false"
-              },
-              {
-                "field": "Microsoft.Compute/virtualMachines/osDisk.encryptionSettings",
-                "exists": "false"
-              },
-              {
-                "field": "Microsoft.Compute/virtualMachines/osDisk.encryptionSettings",
-                "equals": "false"
               }
             ]
             }
@@ -50,4 +38,6 @@
       "then": {
         "effect": "deny"
       }
-
+    }
+  }
+    
